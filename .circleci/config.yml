@@ -9,5 +9,3 @@ workflows:
       - docker/publish:
           dockerfile: Dockerfile
           image: flqvvperso/node-js-server
-          docker-username: "flqvvperso"
-          docker-password: "dckr_pat_-wwb8xvYBuqvvAnSigaE9aMWgO8"
