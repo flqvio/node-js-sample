@@ -1,0 +1,41 @@
+version: 2.1
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Installer les dépendances
+          command: npm install
+      - run:
+          name: Construire l'application
+          command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: /app
+      - run:
+          name: Démarrer l'application
+          command: node /app/server.js &
+      - run:
+          name: Attendre le démarrage du serveur
+          command: sleep 5
+      - run:
+          name: Tester l'application avec wget
+          command: wget -qO- http://localhost:8080
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
