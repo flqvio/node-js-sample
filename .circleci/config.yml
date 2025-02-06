@@ -9,3 +9,7 @@ workflows:
       - docker/publish:
           dockerfile: Dockerfile
           image: flqvvperso/node-js-server
+          docker-username:
+            from_context: flqvvperso
+          docker-password:
+            from_context: dckr_pat_-wwb8xvYBuqvvAnSigaE9aMWgO8
