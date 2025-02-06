@@ -3,11 +3,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:23.7.0
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
       - run:
           name: Build Docker image
           command: docker build -t node-js-server .
@@ -20,8 +18,6 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - setup_remote_docker:
-          version: 20.10.7
       - run:
           name: Run Docker container
           command: docker run -d -p 8080:8080 --name node-js-server-container node-js-server
