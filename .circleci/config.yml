@@ -3,19 +3,20 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.8.2
 
-jobs:
-  build-and-push:
-    executor: docker/machine
-    steps:
-      - checkout
-      - docker/build:
-          image: node:14
-          dockerfile: Dockerfile
-          tag: flqvvperso/node-js-server:latest
-      - docker/push:
-          image: flqvvperso/node-js-server:latest
-
 workflows:
-  push:
+  build-docker-image-only:
     jobs:
       - build-and-push
+
+jobs:
+  build-and-push:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - docker/publish:
+          docker-context: .
+          image: flqvvperso/node-js-server:latest
+          path: .
+          docker-username: flqvvperso
+          docker-password: dckr_pat_zGvXUh5A93gN4RM7K5MAheogFyE
