@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.0
+
 jobs:
   build:
     machine:
@@ -18,18 +21,12 @@ jobs:
       - run:
           name: Wait for the server to start
           command: sleep 5
-      - run:
-          name: Test the application with wget
-          command: wget -qO- http://localhost:8080
-      - run:
-          name: Login to Docker Hub
-          command: echo dckr_pat_wlYQbI6MPCwyzb_P1rX2OQyVrsE | docker login -u flqvvperso --password-stdin
-      - run:
-          name: Tag Docker image
-          command: docker tag node-js-server flqvvperso/node-js-server:latest
-      - run:
-          name: Push Docker image to Docker Hub
-          command: docker push flqvvperso/node-js-server:latest
+      - docker/publish:
+          image: node-js-server
+          tag: latest
+          registry: docker.io
+          username: flqvvperso
+          password: dckr_pat_zGvXUh5A93gN4RM7K5MAheogFyE
 
 workflows:
   version: 2
