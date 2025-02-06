@@ -6,8 +6,10 @@ orbs:
 workflows:
   build-docker-image-only:
     jobs:
+      - checkout
       - docker/publish:
+          dockerfile: Dockerfile
           image: flqvvperso/node-js-server
-          update-description: true
-          docker-username: flqvvperso
-          docker-password: dckr_pat_-wwb8xvYBuqvvAnSigaE9aMWgO8
+          auth:
+            username: flqvvperso
+            password: dckr_pat_-wwb8xvYBuqvvAnSigaE9aMWgO8
