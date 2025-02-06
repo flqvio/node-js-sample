@@ -4,11 +4,6 @@ orbs:
   docker: circleci/docker@2.8.2
 
 workflows:
-  build-docker-image-only:
-    jobs:
-      - build-and-push
-
-jobs:
   build-and-push:
     docker:
       - image: circleci/python:3.8
