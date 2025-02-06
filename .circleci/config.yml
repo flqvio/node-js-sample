@@ -9,6 +9,8 @@ jobs:
       image: ubuntu-2204:current
     steps:
       - checkout
+      - docker/build:
+          image: flqvvperso/node-server
       - docker/publish:
         image: flqvvperso/node-server
         update-description: true
