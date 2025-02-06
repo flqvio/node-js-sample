@@ -1,29 +1,20 @@
-version: '2.1'
+version: 2.1
 
 orbs:
   docker: circleci/docker@2.8.2
 
 jobs:
-  build-and-push:
-    executor: docker/docker
+  build:
+    machine:
+      image: ubuntu-2204:current
     steps:
-      - setup_remote_docker
       - checkout
-      - docker/check
-      - docker/build:
-          image: node-js-server
-      - docker/push:
-          digest-path: /tmp/digest.txt
-          image: node-js-server
-          tag: latest
-          registry: docker.io
-          username: flqvvperso
-          password: dckr_pat_zGvXUh5A93gN4RM7K5MAheogFyE
-      - run:
-          command: |
-            echo "Digest is: $(</tmp/digest.txt)"
+      - docker/publish:
+        image: flqvvperso/node-server
+        update-description: true
 
 workflows:
-  commit:
+  version: 2
+  build-and-deploy:
     jobs:
-      - build-and-push
+      - build
