@@ -18,7 +18,7 @@ jobs:
     machine:
       image: ubuntu-2204:current
     steps:
-    - run:
+      - run:
           name: list image
           command: docker image list
       - run:
