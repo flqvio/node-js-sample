@@ -4,14 +4,10 @@ orbs:
   docker: circleci/docker@2.8.2
 
 workflows:
-  build-and-push:
-    docker:
-      - image: circleci/python:3.8
-    steps:
-      - checkout
+  build-docker-image-only:
+    jobs:
       - docker/publish:
-          docker-context: .
-          image: flqvvperso/node-js-server:latest
-          path: .
+          image: flqvvperso/node-js-server
+          update-description: true
           docker-username: flqvvperso
-          docker-password: dckr_pat_zGvXUh5A93gN4RM7K5MAheogFyE
+          docker-password: dckr_pat_-wwb8xvYBuqvvAnSigaE9aMWgO8
